@@ -13,7 +13,10 @@ time_zone = "+0"
 
 def genKeyLine( code ):
   key_b32 = code.replace(' ','').upper()
-  key_b32 = key_b32+'='*(32%len(key_b32))
+  mod_32 = (32%len(key_b32))
+  if ( mod_32 == 32 ):
+    mod_32 = 0
+  key_b32 = key_b32+'='*mod_32
   key = base64.b32decode(key_b32)
   key_bytes = map(ord,key)
   lengths.append( len(key_bytes) )
